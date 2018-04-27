@@ -1,6 +1,7 @@
 package com.smartpoi.table;
 
 import com.google.common.collect.Table;
+import com.smartpoi.table.header.Column;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -9,7 +10,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class WrappedTable<R, C> implements ExcelSubTable<R, C> {
+public abstract class WrappedTable<R, C extends Column> implements ExcelSubTable<R, C> {
     @Getter(value = AccessLevel.PROTECTED)
     private final Table<R, C, org.apache.poi.ss.usermodel.Cell> wrappedPoiTable;
 

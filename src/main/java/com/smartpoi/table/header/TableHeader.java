@@ -2,10 +2,10 @@ package com.smartpoi.table.header;
 
 import com.smartpoi.condition.column.ColumnCondition;
 
-public interface TableHeader {
+public interface TableHeader<C> {
     boolean containsIndex(int column);
 
-    Column getColumn(int columnIndex);
+    C getColumn(int columnIndex);
 
     int getColumnsSize();
 

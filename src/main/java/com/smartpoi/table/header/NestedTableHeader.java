@@ -4,10 +4,10 @@ import com.smartpoi.condition.column.ColumnCondition;
 
 import java.util.Map;
 
-public class NestedTableHeader implements TableHeader {
-    private final Map<Integer, Column> indexToColumn;
+public class NestedTableHeader<C extends Column> implements TableHeader<C> {
+    private final Map<Integer, C> indexToColumn;
 
-    NestedTableHeader(Map<Integer, Column> indexToColumn) {
+    NestedTableHeader(Map<Integer, C> indexToColumn) {
         this.indexToColumn = indexToColumn;
     }
 
@@ -17,7 +17,7 @@ public class NestedTableHeader implements TableHeader {
     }
 
     @Override
-    public Column getColumn(int columnIndex) {
+    public C getColumn(int columnIndex) {
         return indexToColumn.get(columnIndex);
     }
 
