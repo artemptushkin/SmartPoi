@@ -1,1 +1,5 @@
 GOAL: create API for searching nested tables inside Excel tables.
+
+TODO
+1. Add API to get sub stream of excel entities.
+2. Sub tables have to be with custom poi cells also.

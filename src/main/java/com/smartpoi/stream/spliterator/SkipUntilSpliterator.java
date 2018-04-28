@@ -1,4 +1,4 @@
-package com.smartpoi.stream;
+package com.smartpoi.stream.spliterator;
 
 import java.util.Spliterator;
 import java.util.function.Predicate;

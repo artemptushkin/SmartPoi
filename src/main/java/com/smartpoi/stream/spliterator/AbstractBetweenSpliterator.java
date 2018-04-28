@@ -1,4 +1,4 @@
-package com.smartpoi.stream;
+package com.smartpoi.stream.spliterator;
 
 import lombok.AccessLevel;
 import lombok.Getter;

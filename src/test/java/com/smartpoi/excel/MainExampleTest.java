@@ -25,17 +25,17 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class MainExampleTest {
+class MainExampleTest {
     private static Workbook workbook;
 
     @BeforeAll
-    public static void setUp() throws Exception {
+    static void setUp() throws Exception {
         InputStream is = Files.newInputStream(Paths.get("src/test/resources/ExcelExample.xlsx"));
         workbook = new XSSFWorkbook(is);
     }
 
     @Test
-    public void someTest() throws Exception {
+    void someTest() throws Exception {
         CellToColumn cellMapper = new StringCellValueToColumn(new DataFormatter());
         HeaderBuilder headerBuilder = new NestedTableHeaderBuilder(cellMapper);
         CellConditionFactory conditionFactory = new ExcelConditionFactory(workbook.getCreationHelper().createFormulaEvaluator());

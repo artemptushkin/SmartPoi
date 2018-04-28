@@ -1,21 +1,20 @@
 package com.smartpoi.visitors.row;
 
 import com.smartpoi.condition.cell.CellCondition;
-import org.apache.poi.ss.usermodel.Cell;
+import com.smartpoi.visitors.cell.CellVisitor;
 import org.apache.poi.ss.usermodel.Row;
 
-import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
 public class RowVisitorWithLimit implements RowVisitor {
     private final long limit;
-    private final Consumer<Cell> cellConsumer;
+    private final CellVisitor cellVisitor;
     private final CellCondition cellCondition;
 
-    public RowVisitorWithLimit(Consumer<Cell> cellConsumer, CellCondition cellCondition, long limit) {
+    public RowVisitorWithLimit(CellVisitor cellVisitor, CellCondition cellCondition, long limit) {
         this.cellCondition = cellCondition;
         this.limit = limit;
-        this.cellConsumer = cellConsumer;
+        this.cellVisitor = cellVisitor;
     }
 
     @Override
@@ -23,6 +22,6 @@ public class RowVisitorWithLimit implements RowVisitor {
         StreamSupport.stream(row.spliterator(), false)
                 .limit(limit)
                 .filter(cellCondition)
-                .forEach(cellConsumer);
+                .forEach(cellVisitor);
     }
 }
