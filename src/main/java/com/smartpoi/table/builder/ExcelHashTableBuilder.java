@@ -1,11 +1,11 @@
-package com.smartpoi.table;
+package com.smartpoi.table.builder;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.smartpoi.table.ExcelHashTable;
 import com.smartpoi.table.header.DefaultColumn;
 import com.smartpoi.table.header.TableHeader;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Workbook;
 
 public class ExcelHashTableBuilder implements TableBuilder<Integer, DefaultColumn> {
     private final TableHeader<DefaultColumn> header;
@@ -17,7 +17,7 @@ public class ExcelHashTableBuilder implements TableBuilder<Integer, DefaultColum
     }
 
     @Override
-    public ExcelHashTable<Integer, DefaultColumn> buildTable(Workbook workbook) {
+    public ExcelHashTable<Integer, DefaultColumn> buildTable() {
         return new ExcelHashTable<>(header, table);
     }
 

@@ -1,14 +1,19 @@
 package com.smartpoi.table.header;
 
 import com.smartpoi.condition.column.ColumnCondition;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 import java.util.Map;
 
 public class NestedTableHeader<C extends Column> implements TableHeader<C> {
     private final Map<Integer, C> indexToColumn;
+    @Getter(value = AccessLevel.PUBLIC)
+    private final int rowNum;
 
-    NestedTableHeader(Map<Integer, C> indexToColumn) {
+    NestedTableHeader(Map<Integer, C> indexToColumn, int rowNum) {
         this.indexToColumn = indexToColumn;
+        this.rowNum = rowNum;
     }
 
     @Override

@@ -6,11 +6,11 @@ import com.smartpoi.condition.cell.CellConditionFactory;
 import com.smartpoi.condition.row.AnyMatchCellRowCondition;
 import com.smartpoi.mapper.column.CellToColumn;
 import com.smartpoi.mapper.column.StringCellValueToColumn;
-import com.smartpoi.table.ExcelHashTableBuilder;
-import com.smartpoi.table.TableBuilder;
+import com.smartpoi.table.ExcelSubTable;
+import com.smartpoi.table.builder.HashTableBuildHandler;
+import com.smartpoi.table.builder.TableBuildHandler;
 import com.smartpoi.table.header.HeaderBuilder;
 import com.smartpoi.table.header.NestedTableHeaderBuilder;
-import com.smartpoi.table.header.TableHeader;
 import com.smartpoi.visitors.row.BetweenCellsRowVisitor;
 import com.smartpoi.visitors.row.RowVisitor;
 import com.smartpoi.visitors.sheet.SheetVisitor;
@@ -24,6 +24,9 @@ import org.junit.jupiter.api.Test;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 class MainExampleTest {
     private static Workbook workbook;
@@ -44,10 +47,11 @@ class MainExampleTest {
         RowVisitor rowVisitor = new BetweenCellsRowVisitor(headerBuilder, fistHeaderCellCondition, fistHeaderCellCondition2);
         SheetVisitor sheetVisitor = new SingleRowSheetVisitor(new AnyMatchCellRowCondition(fistHeaderCellCondition),
                 rowVisitor);
-        workbook.forEach(sheetVisitor);
-        TableHeader header = headerBuilder.build();
 
-        TableBuilder tableBuilder = new ExcelHashTableBuilder(header);
+        TableBuildHandler buildHandler = new HashTableBuildHandler(headerBuilder, sheetVisitor);
 
+        ExcelSubTable subTable = buildHandler.buildTable(workbook.getSheetAt(0));
+
+        assertThat(subTable.size(), equalTo(4));
     }
 }
