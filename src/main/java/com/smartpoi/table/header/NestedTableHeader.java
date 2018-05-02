@@ -1,12 +1,11 @@
 package com.smartpoi.table.header;
 
-import com.smartpoi.condition.column.ColumnCondition;
 import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.util.Map;
 
-public class NestedTableHeader<C extends Column> implements TableHeader<C> {
+public class NestedTableHeader<C> implements TableHeader<C> {
     private final Map<Integer, C> indexToColumn;
     @Getter(value = AccessLevel.PUBLIC)
     private final int rowNum;
@@ -14,6 +13,14 @@ public class NestedTableHeader<C extends Column> implements TableHeader<C> {
     NestedTableHeader(Map<Integer, C> indexToColumn, int rowNum) {
         this.indexToColumn = indexToColumn;
         this.rowNum = rowNum;
+    }
+
+    @Override
+    public int getFirstIndex() {
+        if (!indexToColumn.entrySet().isEmpty()) {
+            return indexToColumn.entrySet().iterator().next().getKey();
+        }
+        throw new IllegalArgumentException("Header is empty.");
     }
 
     @Override
@@ -29,12 +36,5 @@ public class NestedTableHeader<C extends Column> implements TableHeader<C> {
     @Override
     public int getColumnsSize() {
         return indexToColumn.size();
-    }
-
-    @Override
-    public void filterByCondition(ColumnCondition columnCondition) {
-        indexToColumn.entrySet()
-                .removeIf(entry ->
-                        columnCondition.negate().test(entry.getValue()));
     }
 }

@@ -2,8 +2,8 @@ package com.smartpoi.table.builder;
 
 import com.google.common.collect.Table;
 import com.smartpoi.condition.row.RowCondition;
+import com.smartpoi.mapper.cell.CellMapper;
 import com.smartpoi.table.ExcelSubTable;
-import com.smartpoi.table.header.Column;
 import com.smartpoi.table.header.HeaderBuilder;
 import com.smartpoi.table.header.TableHeader;
 import com.smartpoi.visitors.row.RowVisitor;
@@ -13,17 +13,21 @@ import lombok.Getter;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 
-public abstract class AbstractTableBuilder<R, C extends Column> implements TableBuilder<R, C> {
+public abstract class AbstractTableBuilder<R, C> implements TableBuilder<R, C> {
 
     private final HeaderBuilder<C> headerBuilder;
     private final SheetVisitor headerSheetVisitor;
     @Getter(value = AccessLevel.PROTECTED)
+    private final CellMapper<R> cellToRow;
+    @Getter(value = AccessLevel.PROTECTED)
     private final Table<R, C, Cell> table;
 
-    public AbstractTableBuilder(HeaderBuilder headerBuilder,
-                                SheetVisitor headerSheetVisitor) {
+    public AbstractTableBuilder(HeaderBuilder<C> headerBuilder,
+                                SheetVisitor headerSheetVisitor,
+                                CellMapper<R> cellToRow) {
         this.headerBuilder = headerBuilder;
         this.headerSheetVisitor = headerSheetVisitor;
+        this.cellToRow = cellToRow;
         table = createPoiTable();
     }
 
@@ -57,7 +61,7 @@ public abstract class AbstractTableBuilder<R, C extends Column> implements Table
 
     protected abstract HeaderConditionalCellVisitor createTableBuilder(TableHeader<C> tableHeader);
 
-    public abstract class HeaderConditionalCellVisitor<C extends Column> implements ConditionalCellVisitor {
+    public abstract class HeaderConditionalCellVisitor<C> implements ConditionalCellVisitor {
         @Getter(value = AccessLevel.PROTECTED)
         private final TableHeader<C> header;
 

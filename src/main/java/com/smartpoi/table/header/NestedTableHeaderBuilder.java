@@ -1,35 +1,35 @@
 package com.smartpoi.table.header;
 
-import com.smartpoi.mapper.column.CellToColumn;
+import com.smartpoi.mapper.cell.CellMapper;
 import lombok.Setter;
 import org.apache.poi.ss.usermodel.Cell;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class NestedTableHeaderBuilder implements HeaderBuilder<Column> {
+public class NestedTableHeaderBuilder<C> implements HeaderBuilder<C> {
 
-    private final Map<Integer, Column> indexToColumn;
-    private final CellToColumn cellMapper;
+    private final Map<Integer, C> indexToColumn;
+    private final CellMapper<C> cellMapper;
 
     @Setter
     private int rowNum;
 
-    public NestedTableHeaderBuilder(CellToColumn cellMapper) {
+    public NestedTableHeaderBuilder(CellMapper<C> cellMapper) {
         this.cellMapper = cellMapper;
         this.indexToColumn = new LinkedHashMap<>();
         this.rowNum = -1;
     }
 
     @Override
-    public TableHeader<Column> build() {
+    public TableHeader<C> build() {
         return new NestedTableHeader<>(indexToColumn, rowNum);
     }
 
     @Override
     public void accept(Cell cell) {
         setRowNum(cell.getRowIndex());
-        Column column = cellMapper.apply(cell);
+        C column = cellMapper.apply(cell);
         indexToColumn.put(cell.getColumnIndex(), column);
     }
 }

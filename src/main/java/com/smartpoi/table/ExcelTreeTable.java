@@ -1,10 +1,9 @@
 package com.smartpoi.table;
 
 import com.google.common.collect.Table;
-import com.smartpoi.table.header.ComparableColumn;
 import com.smartpoi.table.header.TableHeader;
 
-public class ExcelTreeTable<R, C extends ComparableColumn> extends WrappedTable<R, C> {
+public class ExcelTreeTable<R, C> extends WrappedTable<R, C> {
     private final TableHeader tableHeader;
 
     public ExcelTreeTable(TableHeader tableHeader,
