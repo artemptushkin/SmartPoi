@@ -7,7 +7,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class NestedTableHeaderBuilder implements HeaderBuilder {
+public class NestedTableHeaderBuilder implements HeaderBuilder<Column> {
 
     private final Map<Integer, Column> indexToColumn;
     private final CellToColumn cellMapper;
@@ -22,7 +22,7 @@ public class NestedTableHeaderBuilder implements HeaderBuilder {
     }
 
     @Override
-    public TableHeader build() {
+    public TableHeader<Column> build() {
         return new NestedTableHeader<>(indexToColumn, rowNum);
     }
 

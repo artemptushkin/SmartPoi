@@ -7,8 +7,8 @@ import com.smartpoi.condition.row.AnyMatchCellRowCondition;
 import com.smartpoi.mapper.column.CellToColumn;
 import com.smartpoi.mapper.column.StringCellValueToColumn;
 import com.smartpoi.table.ExcelSubTable;
-import com.smartpoi.table.builder.HashTableBuildHandler;
-import com.smartpoi.table.builder.TableBuildHandler;
+import com.smartpoi.table.builder.HashTableBuilder;
+import com.smartpoi.table.builder.TableBuilder;
 import com.smartpoi.table.header.HeaderBuilder;
 import com.smartpoi.table.header.NestedTableHeaderBuilder;
 import com.smartpoi.visitors.row.BetweenCellsRowVisitor;
@@ -42,13 +42,13 @@ class MainExampleTest {
         CellToColumn cellMapper = new StringCellValueToColumn(new DataFormatter());
         HeaderBuilder headerBuilder = new NestedTableHeaderBuilder(cellMapper);
         CellConditionFactory conditionFactory = new ExcelConditionFactory(workbook.getCreationHelper().createFormulaEvaluator());
-        CellCondition fistHeaderCellCondition = conditionFactory.eqIgnoreCaseCondition("Шапка1");
-        CellCondition fistHeaderCellCondition2 = conditionFactory.eqIgnoreCaseCondition("Шапка4");
+        CellCondition fistHeaderCellCondition = conditionFactory.eqIgnoreCase("Шапка1");
+        CellCondition fistHeaderCellCondition2 = conditionFactory.eqIgnoreCase("Шапка4");
         RowVisitor rowVisitor = new BetweenCellsRowVisitor(headerBuilder, fistHeaderCellCondition, fistHeaderCellCondition2);
         SheetVisitor sheetVisitor = new SingleRowSheetVisitor(new AnyMatchCellRowCondition(fistHeaderCellCondition),
                 rowVisitor);
 
-        TableBuildHandler buildHandler = new HashTableBuildHandler(headerBuilder, sheetVisitor);
+        TableBuilder buildHandler = new HashTableBuilder(headerBuilder, sheetVisitor);
 
         ExcelSubTable subTable = buildHandler.buildTable(workbook.getSheetAt(0));
 

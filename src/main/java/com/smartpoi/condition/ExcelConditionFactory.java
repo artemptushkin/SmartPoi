@@ -16,7 +16,7 @@ public class ExcelConditionFactory implements CellConditionFactory, RowCondition
     }
 
     @Override
-    public EqIgnoreCaseCondition eqIgnoreCaseCondition(String expectedValue) {
+    public EqIgnoreCaseCondition eqIgnoreCase(String expectedValue) {
         return new EqIgnoreCaseCondition(expectedValue, dataFormatter);
     }
 
@@ -26,17 +26,17 @@ public class ExcelConditionFactory implements CellConditionFactory, RowCondition
     }
 
     @Override
-    public ContainsIgnoreCaseCondition containsIgnoreCaseCondition(String checkedValue) {
+    public ContainsIgnoreCaseCondition containsIgnoreCase(String checkedValue) {
         return new ContainsIgnoreCaseCondition(checkedValue, dataFormatter);
     }
 
     @Override
-    public EmptyCellCondition emptyCellCondition() {
+    public EmptyCellCondition emptyCell() {
         return new EmptyCellCondition();
     }
 
     @Override
-    public ColumnIndexCondition columnIndexCondition(int columnIndex) {
+    public ColumnIndexCondition columnIndex(int columnIndex) {
         return new ColumnIndexCondition(columnIndex);
     }
 
