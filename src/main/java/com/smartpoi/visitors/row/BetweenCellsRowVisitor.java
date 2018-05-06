@@ -1,12 +1,12 @@
 package com.smartpoi.visitors.row;
 
 import com.smartpoi.condition.cell.CellCondition;
-import com.smartpoi.visitors.BetweenParentVisitor;
+import com.smartpoi.stream.consumer.BetweenChildrenVisitor;
 import com.smartpoi.visitors.cell.CellVisitor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-public class BetweenCellsRowVisitor extends BetweenParentVisitor<Row, Cell> implements RowVisitor {
+public class BetweenCellsRowVisitor extends BetweenChildrenVisitor<Row, Cell> implements RowVisitor {
 
     public BetweenCellsRowVisitor(CellVisitor cellVisitor,
                                   CellCondition leftCondition,

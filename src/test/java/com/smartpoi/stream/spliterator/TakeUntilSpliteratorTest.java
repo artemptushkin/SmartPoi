@@ -1,4 +1,4 @@
-package com.smartpoi.stream;
+package com.smartpoi.stream.spliterator;
 
 import com.smartpoi.stream.spliterator.TakeUntilSpliterator;
 import org.hamcrest.Matchers;

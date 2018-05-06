@@ -2,31 +2,27 @@ package com.smartpoi.visitors.workbook;
 
 import com.smartpoi.condition.sheet.SheetCondition;
 import com.smartpoi.exception.SheetNotFoundException;
+import com.smartpoi.exception.SheetVisitException;
+import com.smartpoi.stream.consumer.FirstChildVisitor;
 import com.smartpoi.visitors.sheet.SheetVisitor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.Optional;
-import java.util.stream.StreamSupport;
+import java.util.function.Supplier;
 
-public class SingleSheetWorkbookVisitor implements WorkbookVisitor {
-    private final SheetCondition sheetCondition;
-    private final SheetVisitor sheetVisitor;
+public class SingleSheetWorkbookVisitor extends FirstChildVisitor<Workbook, Sheet> implements WorkbookVisitor {
 
     public SingleSheetWorkbookVisitor(SheetCondition sheetCondition, SheetVisitor sheetVisitor) {
-        this.sheetCondition = sheetCondition;
-        this.sheetVisitor = sheetVisitor;
+        super(sheetVisitor, sheetCondition);
     }
 
     @Override
-    public void accept(Workbook workbook) {
-        Optional<Sheet> sheetOptional = StreamSupport.stream(workbook.spliterator(), false)
-                .filter(sheetCondition)
-                .findFirst();
-        if (sheetOptional.isPresent()) {
-            sheetVisitor.accept(sheetOptional.get());
-        } else {
-            throw new SheetNotFoundException(sheetCondition);
-        }
+    protected Sheet orElseCustom(Workbook workbook, Optional<Sheet> optionalSheet) {
+        return optionalSheet.orElseThrow(sheetNotFoundException());
+    }
+
+    private Supplier<SheetVisitException> sheetNotFoundException() {
+        return () -> new SheetNotFoundException(getCondition());
     }
 }

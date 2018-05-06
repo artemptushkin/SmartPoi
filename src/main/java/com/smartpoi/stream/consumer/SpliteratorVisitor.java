@@ -1,4 +1,4 @@
-package com.smartpoi.visitors;
+package com.smartpoi.stream.consumer;
 
 import com.smartpoi.stream.spliterator.SpliteratorBuilder;
 

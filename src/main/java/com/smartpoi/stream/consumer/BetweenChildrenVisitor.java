@@ -1,4 +1,4 @@
-package com.smartpoi.visitors;
+package com.smartpoi.stream.consumer;
 
 import com.smartpoi.stream.spliterator.AbstractBetweenSpliterator;
 import com.smartpoi.stream.spliterator.BetweenSpliterator;
@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @Getter(value = AccessLevel.PROTECTED)
-public class BetweenParentVisitor<Parent extends Iterable<Child>, Child> extends ChildVisitor<Parent, Child>
+public class BetweenChildrenVisitor<Parent extends Iterable<Child>, Child> extends ChildrenVisitor<Parent, Child>
         implements Consumer<Parent> {
 
     private final Predicate<Child> leftCondition;
@@ -18,11 +18,11 @@ public class BetweenParentVisitor<Parent extends Iterable<Child>, Child> extends
     private final Boolean inclusiveLeft;
     private final Boolean inclusiveRight;
 
-    public BetweenParentVisitor(Consumer<Child> visitor,
-                                Predicate<Child> leftCondition,
-                                Predicate<Child> rightCondition,
-                                boolean inclusiveLeft,
-                                boolean inclusiveRight) {
+    public BetweenChildrenVisitor(Consumer<Child> visitor,
+                                  Predicate<Child> leftCondition,
+                                  Predicate<Child> rightCondition,
+                                  boolean inclusiveLeft,
+                                  boolean inclusiveRight) {
         super(visitor);
         this.leftCondition = leftCondition;
         this.rightCondition = rightCondition;
@@ -30,9 +30,9 @@ public class BetweenParentVisitor<Parent extends Iterable<Child>, Child> extends
         this.inclusiveRight = inclusiveRight;
     }
 
-    public BetweenParentVisitor(Consumer<Child> cellVisitor,
-                                Predicate<Child> leftCondition,
-                                Predicate<Child> rightCondition) {
+    public BetweenChildrenVisitor(Consumer<Child> cellVisitor,
+                                  Predicate<Child> leftCondition,
+                                  Predicate<Child> rightCondition) {
         super(cellVisitor);
         this.leftCondition = leftCondition;
         this.rightCondition = rightCondition;
@@ -43,7 +43,7 @@ public class BetweenParentVisitor<Parent extends Iterable<Child>, Child> extends
     @Override
     public void accept(Parent parent) {
         Spliterator<Child> spliterator = buildSpliterator(parent.spliterator());
-        fromSpliterator(spliterator).forEach(visitor);
+        fromSpliterator(spliterator).forEach(childrenConsumer);
     }
 
     @Override

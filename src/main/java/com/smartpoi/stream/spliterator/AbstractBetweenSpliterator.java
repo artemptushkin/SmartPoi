@@ -53,7 +53,7 @@ public abstract class AbstractBetweenSpliterator<T> implements Spliterator<T> {
 
     @Override
     public Spliterator<T> trySplit() {
-        return null;
+        return source.trySplit();
     }
 
     @Override
