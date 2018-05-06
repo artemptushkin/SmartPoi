@@ -2,13 +2,15 @@ package com.smartpoi.exception;
 
 import java.util.function.Predicate;
 
+import static com.smartpoi.util.ExceptionMessageUtil.notFoundMessage;
+
 public class CellNotFoundException extends CellVisitException {
 
     public CellNotFoundException(Predicate predicate) {
-        super(String.format("Cell not found by condition: %s", predicate));
+        super(notFoundMessage(CELL_TEXT, predicate));
     }
 
     public CellNotFoundException(Predicate... predicates) {
-        super(String.format("Cell not found by conditions: %s", predicates));
+        super(notFoundMessage(CELL_TEXT, predicates));
     }
 }

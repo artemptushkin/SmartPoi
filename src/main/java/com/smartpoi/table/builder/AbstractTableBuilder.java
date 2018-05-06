@@ -11,6 +11,7 @@ import com.smartpoi.visitors.sheet.SheetVisitor;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 public abstract class AbstractTableBuilder<R, C> implements TableBuilder<R, C> {
@@ -39,7 +40,7 @@ public abstract class AbstractTableBuilder<R, C> implements TableBuilder<R, C> {
 
         SheetVisitor sheetVisitorForTable = rowsVisitor(
                 RowVisitor.visitorWithFilter(conditionalCellVisitor, conditionalCellVisitor),
-                row -> row.getRowNum() > header.getExcelRowNum());
+                row -> rowsAfterHeader(header, row));
 
         sheetVisitorForTable.accept(sheet);
 
@@ -54,12 +55,15 @@ public abstract class AbstractTableBuilder<R, C> implements TableBuilder<R, C> {
         return SheetVisitor.defaultVisitorWithFilter(cellsRelevantToHeaderVisitor, rowCondition);
     }
 
-    /* todo create table from diff methods, see TreeBasedTable.create.. */
     protected abstract Table<R, C, Cell> createPoiTable();
 
     protected abstract ExcelSubTable<R, C> buildTable(TableHeader<C> tableHeader, Table<R, C, Cell> table);
 
     protected abstract HeaderConditionalCellVisitor createTableBuilder(TableHeader<C> tableHeader);
+
+    private boolean rowsAfterHeader(TableHeader<C> header, Row row) {
+        return row.getRowNum() > header.getExcelRowNum();
+    }
 
     public abstract class HeaderConditionalCellVisitor<C> implements ConditionalCellVisitor {
         @Getter(value = AccessLevel.PROTECTED)

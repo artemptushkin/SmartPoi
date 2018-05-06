@@ -2,3 +2,4 @@ GOAL: create API for searching nested tables inside Excel tables.
 
 TODO
 1. Sub tables have to be with custom cells also.
+2. Create table from diff methods, see TreeBasedTable.create..

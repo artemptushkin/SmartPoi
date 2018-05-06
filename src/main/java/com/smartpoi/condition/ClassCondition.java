@@ -1,4 +1,4 @@
-package com.smartpoi.condition.column;
+package com.smartpoi.condition;
 
 import lombok.NonNull;
 
