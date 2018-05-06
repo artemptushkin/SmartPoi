@@ -1,6 +1,5 @@
 package com.smartpoi.stream.spliterator;
 
-import com.smartpoi.stream.spliterator.SkipWhileSpliterator;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 

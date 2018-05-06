@@ -1,5 +1,63 @@
+This is not finished, repository of examples on the goal:
 GOAL: create API for searching nested tables inside Excel tables.
+
+Example, see under the 'header'
+
+|===
+|A |B |C |D |E |F
+
+|1
+|
+|
+|
+|
+|
+
+|2
+|
+|Header1
+|Header2
+|Header3
+|Header4
+
+|3
+|
+|123
+|
+|Foo
+|
+
+|4
+|
+|
+|456
+|
+|
+
+|5
+|
+|
+|
+|Bas
+|
+
+|6
+|
+|789
+|
+|
+|
+|===
+
+Reached:
+com.smartpoi.stream - classes for building Between, SkipWhile, SkipUntil, TakeUntil, TakeWhile spliterators
+com.smartpoi.table - classes for building tables ExcelHashTable, ExcelTreeTable
+
+Example:
+com.smartpoi.excel.CompleteIntegrationTest
 
 TODO
 1. Sub tables have to be with custom cells also.
 2. Create table from diff methods, see TreeBasedTable.create..
+3. com.smartpoi.visitors - finish with visitors
+4. All the unit-tests
