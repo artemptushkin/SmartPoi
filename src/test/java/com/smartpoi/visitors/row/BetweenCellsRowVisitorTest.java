@@ -36,8 +36,8 @@ class BetweenCellsRowVisitorTest {
         expectedToVisit = 0;
         visited = 0;
         cellVisitor = cell -> ++visited;
-        leftCondition = new EqIgnoreCaseCondition("Шапка1", createDataFormatter(workbook));
-        rightCondition = new EqIgnoreCaseCondition("Шапка4", createDataFormatter(workbook));
+        leftCondition = new EqIgnoreCaseCondition("Header1", createDataFormatter(workbook));
+        rightCondition = new EqIgnoreCaseCondition("Header4", createDataFormatter(workbook));
     }
 
     @Test

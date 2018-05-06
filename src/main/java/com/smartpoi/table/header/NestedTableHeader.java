@@ -8,11 +8,11 @@ import java.util.Map;
 public class NestedTableHeader<C> implements TableHeader<C> {
     private final Map<Integer, C> indexToColumn;
     @Getter(value = AccessLevel.PUBLIC)
-    private final int rowNum;
+    private final int excelRowNum;
 
-    NestedTableHeader(Map<Integer, C> indexToColumn, int rowNum) {
+    NestedTableHeader(Map<Integer, C> indexToColumn, int excelRowNum) {
         this.indexToColumn = indexToColumn;
-        this.rowNum = rowNum;
+        this.excelRowNum = excelRowNum;
     }
 
     @Override

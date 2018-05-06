@@ -37,7 +37,7 @@ public class SingleRowSheetVisitor implements SheetVisitor {
             }
             rowVisitor.accept(row);
         } else {
-            throw new RowNotFoundException(rowCondition.toString());
+            throw new RowNotFoundException(rowCondition);
         }
     }
 }

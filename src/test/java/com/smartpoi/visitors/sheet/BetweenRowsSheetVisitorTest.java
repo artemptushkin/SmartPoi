@@ -38,8 +38,8 @@ class BetweenRowsSheetVisitorTest {
         expectedToVisit = 0;
         visited = 0;
         rowVisitor = cell -> ++visited;
-        CellCondition cellCondition1 = new EqIgnoreCaseCondition("Первая ячейка", createDataFormatter(workbook));
-        CellCondition cellCondition2 = new EqIgnoreCaseCondition("Шапка1", createDataFormatter(workbook));
+        CellCondition cellCondition1 = new EqIgnoreCaseCondition("First Cell", createDataFormatter(workbook));
+        CellCondition cellCondition2 = new EqIgnoreCaseCondition("Header1", createDataFormatter(workbook));
         leftCondition = new AnyMatchCellRowCondition(cellCondition1);
         rightCondition = new AnyMatchCellRowCondition(cellCondition2);
     }

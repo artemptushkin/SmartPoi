@@ -1,7 +1,9 @@
 package com.smartpoi.exception;
 
+import java.util.function.Predicate;
+
 public class CellsRangeNotFound extends CellNotFoundException {
-    public CellsRangeNotFound(String message) {
-        super(message);
+    public CellsRangeNotFound(Predicate predicate) {
+        super(predicate);
     }
 }

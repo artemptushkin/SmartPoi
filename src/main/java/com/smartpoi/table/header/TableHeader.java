@@ -7,7 +7,7 @@ public interface TableHeader<C> {
 
     int getFirstIndex();
 
-    int getRowNum();
+    int getExcelRowNum();
 
     int getColumnsSize();
 }

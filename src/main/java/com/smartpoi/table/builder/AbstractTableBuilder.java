@@ -39,7 +39,7 @@ public abstract class AbstractTableBuilder<R, C> implements TableBuilder<R, C> {
 
         SheetVisitor sheetVisitorForTable = rowsVisitor(
                 RowVisitor.visitorWithFilter(conditionalCellVisitor, conditionalCellVisitor),
-                row -> row.getRowNum() > header.getRowNum());
+                row -> row.getRowNum() > header.getExcelRowNum());
 
         sheetVisitorForTable.accept(sheet);
 

@@ -25,7 +25,7 @@ import static com.smartpoi.excel.ExcelIntegrationTestUtil.createTestWorkbook;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-class MainExampleTest {
+class CompleteIntegrationTest {
     private static Workbook workbook;
     private static DataFormatter dataFormatter;
 
@@ -40,8 +40,8 @@ class MainExampleTest {
         CellMapper<String> cellMapper = new CellToStringMapper(new DataFormatter());
         HeaderBuilder<String> headerBuilder = new NestedTableHeaderBuilder<>(cellMapper);
         CellConditionFactory conditionFactory = new ExcelConditionFactory(workbook.getCreationHelper().createFormulaEvaluator());
-        CellCondition fistHeaderCellCondition = conditionFactory.eqIgnoreCase("Шапка1");
-        CellCondition fistHeaderCellCondition2 = conditionFactory.eqIgnoreCase("Шапка4");
+        CellCondition fistHeaderCellCondition = conditionFactory.eqIgnoreCase("Header1");
+        CellCondition fistHeaderCellCondition2 = conditionFactory.eqIgnoreCase("Header4");
         RowVisitor rowVisitor = new BetweenCellsRowVisitor(headerBuilder, fistHeaderCellCondition, fistHeaderCellCondition2);
         SheetVisitor sheetVisitor = new SingleRowSheetVisitor(new AnyMatchCellRowCondition(fistHeaderCellCondition),
                 rowVisitor);
@@ -52,5 +52,7 @@ class MainExampleTest {
         ExcelSubTable subTable = buildHandler.buildTable(workbook.getSheetAt(0));
 
         assertThat(subTable.size(), equalTo(4));
+        assertThat(subTable.columnSize(), equalTo(2));
+        assertThat(subTable.getTableHeader().getExcelRowNum(), equalTo(5));
     }
 }
